@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const toSlug = (str: string) => {
@@ -10,11 +11,12 @@ const toSlug = (str: string) => {
     .replace(/\s+/g, "-"); // Replace spaces with hyphens
 };
 
-export default function page(props: any) {
-  const { params } = props;
+export default function B8(props: any) {
+  //   const { params } = props;
 
-  console.log(params);
+  //   console.log(params);
 
+  // const path = params.slug.join("/");
   const course = [
     {
       id: 1,
@@ -50,13 +52,22 @@ export default function page(props: any) {
     },
   ];
 
-  const courseDetail = course.find((c) => toSlug(c.name) === params.slug[0]);
   return (
-    <div>
-      <h1>{courseDetail?.name}</h1>
-      <p>{courseDetail?.duration}</p>
-      <p>{courseDetail?.lecture}</p>
-      <img src={courseDetail?.image} alt={courseDetail?.name} />
+    <div className="flex">
+      {course.map((item: any) => (
+        <div key={item.id} className="mr-6">
+          <img
+            src={item.image}
+            className="w-[160px] h-[160px]"
+            alt={item.name}
+          />
+          <h3>{item.name}</h3>
+          <Link href={`/blog/${toSlug(item.name)}`}>
+            <div>Xem chi tiết</div>
+          </Link>
+        </div>
+      ))}
     </div>
   );
+  // <div>{`Bạn đang xem blog với đường dẫn: ${path}`}</div>
 }
